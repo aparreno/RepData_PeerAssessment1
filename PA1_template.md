@@ -11,7 +11,7 @@ data$date <- as.Date(data$date)
 
 
 ## What is mean total number of steps taken per day?
-###First a histogram of the total number of steps taken each day is plotted
+First a histogram of the total number of steps taken each day is plotted
 
 ```r
 library(ggplot2)
@@ -22,7 +22,7 @@ ggplot(stepsD, aes(x=date, y=steps))+ geom_histogram(stat = "identity")+scale_x_
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
-###The mean of total steps taken per day
+The mean of total steps taken per day
 
 ```r
 mean(stepsD$steps, na.rm = TRUE)
@@ -32,7 +32,7 @@ mean(stepsD$steps, na.rm = TRUE)
 ## [1] 10766.19
 ```
 
-###The median of total steps taken per day
+The median of total steps taken per day
 
 ```r
 median(stepsD$steps, na.rm = TRUE)
@@ -43,7 +43,7 @@ median(stepsD$steps, na.rm = TRUE)
 ```
 
 ## What is the average daily activity pattern?
-###The time series plot of the 5-minute interval and the average number of steps taken, averaged across all days
+The time series plot of the 5-minute interval and the average number of steps taken, averaged across all days
 
 ```r
 stepsI <- aggregate(steps~interval, data = data, sum)
@@ -52,7 +52,7 @@ plot.ts(stepsI$interval, stepsI$steps,  type="l", xlab= "Interval", ylab= "Steps
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
-###The 5-minute interval, on average across all the days in the dataset, that contains maximum number of steps
+The 5-minute interval, on average across all the days in the dataset, that contains maximum number of steps
 
 ```r
 colMax <- function(data) sapply(data, max, na.rm = TRUE)
@@ -66,7 +66,7 @@ interval[1]
 ```
 
 ## Imputing missing values
-###Calculate and report the total number of missing values in the dataset
+Calculate and report the total number of missing values in the dataset
 
 ```r
 sum(!complete.cases(data))
@@ -75,8 +75,8 @@ sum(!complete.cases(data))
 ```
 ## [1] 2304
 ```
-###The strategy for filling in all of the missing values in the dataset is the mean for that 5-minute interval
-###Create a new dataset that is equal to the original dataset but with the missing data filled in
+The strategy for filling in all of the missing values in the dataset is the mean for that 5-minute interval
+Create a new dataset that is equal to the original dataset but with the missing data filled in
 
 ```r
 stepsM <- aggregate(steps~interval, data = data, mean)
@@ -88,7 +88,7 @@ for (i in 1:nrow(data)){
 }
 ```
 
-###Histogram of the total number of steps taken each day
+Histogram of the total number of steps taken each day
 
 ```r
 nstepsD <- aggregate(steps~date, data = newdataset, sum)
@@ -97,7 +97,7 @@ ggplot(nstepsD, aes(x=date, y=steps))+ geom_histogram(stat = "identity")+scale_x
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
-###The mean of total steps taken per day
+The mean of total steps taken per day
 
 ```r
 mean(nstepsD$steps)
@@ -107,7 +107,7 @@ mean(nstepsD$steps)
 ## [1] 10766.19
 ```
 
-###The median of total steps taken per day
+The median of total steps taken per day
 
 ```r
 median(nstepsD$steps)
@@ -117,9 +117,9 @@ median(nstepsD$steps)
 ## [1] 10766.19
 ```
 
-###The mean remains the same as NA are filled in with the mean of each interval. The median changes to be the same of the mean.
+The mean remains the same as NA are filled in with the mean of each interval. The median changes to be the same of the mean.
 
-###There is no impact of imputing missing data on the estimates of the total daily number of steps.
+There is no impact of imputing missing data on the estimates of the total daily number of steps.
 
 ```r
 nstepsI <- aggregate(steps~interval, data = newdataset, sum)
@@ -139,7 +139,7 @@ interval[1]
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
-###Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 ```r
 for (i in 1:nrow(newdataset)){
@@ -151,7 +151,7 @@ for (i in 1:nrow(newdataset)){
 }
 ```
 
-###Plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+Plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 
 ```r
